@@ -1,9 +1,7 @@
 >> the good
-i really like the name
-
+1:i really like the name:2:i like the field being final and private
 >> the bad
-doesnt really have any behaviour
-
+8:doesnt really have any behaviour
 >> the code
 public class Cam {
 

@@ -25,6 +25,4 @@ public class CodeReview {
 	public String getWhatIDontLike() {
 		return whatIDontLike;
 	}
-	
-	
 }

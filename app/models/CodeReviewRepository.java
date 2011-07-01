@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.util.List;
 import java.util.Random;
+import java.util.StringTokenizer;
 
 import org.apache.commons.io.IOUtils;
 
@@ -27,7 +28,19 @@ public class CodeReviewRepository {
 		String whatIDontLike = content.substring(whatIDontLikeIndex, theCodeIndex).replace(">> the bad", "");
 		String theCode = content.substring(theCodeIndex).replace(">> the code", "");
 		
-		List<WhatILike> thingsILike = Lists.create(new WhatILike(whatILike));
+		List<WhatILike> thingsILike = Lists.create();
+		StringTokenizer whatILikeTokenizer = new StringTokenizer(whatILike, ":");
+		while(whatILikeTokenizer.hasMoreTokens()) {
+			String lineNumber = whatILikeTokenizer.nextToken();
+			
+			if (!whatILikeTokenizer.hasMoreTokens()) {
+				throw new RuntimeException("invalid format of what I likes, expected content to match a line number: " + whatILike);
+			}
+			
+			String oneThingILike = whatILikeTokenizer.nextToken();
+			thingsILike.add(new WhatILike(lineNumber, oneThingILike));
+		}
+		
 		return new CodeReview(theCode, thingsILike, whatIDontLike);
 	}
 	

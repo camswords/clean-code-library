@@ -1,9 +1,7 @@
 >> the good
-i really the another dudes name
-
+6:i really the another dudes name
 >> the bad
-looks pretty similar to another code review
-
+1:looks pretty similar to another code review
 >> the code
 public class Another {
 
