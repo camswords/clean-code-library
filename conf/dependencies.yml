@@ -2,3 +2,4 @@
 
 require:
     - play
+    - commons-io-2.0.1.jar

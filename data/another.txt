@@ -1,0 +1,16 @@
+>> the good
+i really the another dudes name
+
+>> the bad
+looks pretty similar to another code review
+
+>> the code
+public class Another {
+
+	private final String value;
+
+	public Another() {
+		this.value = "another.dude";
+	}
+
+}

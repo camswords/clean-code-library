@@ -10,7 +10,8 @@ import models.*;
 public class Application extends Controller {
 
     public static void index() {
-        render();
+        CodeReview codeReview = new CodeReviewRepository().getRandomPieceOfCode();
+		render(codeReview);
     }
 
 }

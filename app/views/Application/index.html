@@ -1,4 +1,33 @@
-#{extends 'main.html' /}
-#{set title:'Home' /}
+#{extends 'site_layout.html' /}
 
-#{welcome /}
+#{set 'moreScripts'}
+	#{script 'ace.js' /}
+	#{script 'mode-java.js' /}
+	#{script 'theme-clouds_midnight.js' /}
+#{/set}
+
+<script>
+	window.onload = function() {
+		editor = ace.edit("code-under-review");
+		
+		var JavaMode = require("ace/mode/java").Mode;
+		editor.getSession().setMode(new JavaMode());
+		editor.setReadOnly(true);
+	};
+</script>
+
+<div id="header">
+	<h1>Clean Code Library</h1>
+</div>
+
+<div id="editor-panel">
+	<div id="code-under-review">${codeReview.text}</div>
+</div>
+<div id="what-i-like">
+	<p>+</p>
+	<p>${codeReview.whatILike}</p>
+</div>
+<div id="what-i-dont-like">
+	<p>-</p>
+	<p>${codeReview.whatIDontLike}</p>
+</div>

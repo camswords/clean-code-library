@@ -1,0 +1,16 @@
+>> the good
+i really like the name
+
+>> the bad
+doesnt really have any behaviour
+
+>> the code
+public class Cam {
+
+	private final String value;
+
+	public Cam() {
+		this.value = "dude";
+	}
+
+}

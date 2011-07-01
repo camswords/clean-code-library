@@ -1,0 +1,25 @@
+
+#header {
+	text-align: center;
+}
+
+#editor-panel {
+	margin: 0 auto;
+	width: 800px;
+}
+
+#code-under-review {
+    position: absolute;
+    width: 800px;
+    height: 600px;
+	border: 1px solid black;
+}
+
+#what-i-like {
+	position: relative;
+}
+
+#what-i-dont-like {
+	position: relative;
+	
+}
