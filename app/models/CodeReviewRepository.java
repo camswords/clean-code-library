@@ -28,31 +28,8 @@ public class CodeReviewRepository {
 		String whatIDontLike = content.substring(whatIDontLikeIndex, theCodeIndex).replace(">> the bad\n", "");
 		String theCode = content.substring(theCodeIndex).replace(">> the code\n", "");
 		
-		List<WhatILike> thingsILike = Lists.create();
-		StringTokenizer whatILikeTokenizer = new StringTokenizer(whatILike, ":");
-		while(whatILikeTokenizer.hasMoreTokens()) {
-			String lineNumber = whatILikeTokenizer.nextToken();
-			
-			if (!whatILikeTokenizer.hasMoreTokens()) {
-				throw new RuntimeException("invalid format of what I likes, expected content to match a line number: " + whatILike);
-			}
-			
-			String oneThingILike = whatILikeTokenizer.nextToken();
-			thingsILike.add(new WhatILike(lineNumber, oneThingILike));
-		}
-		
-		List<WhatIDontLike> thingsIDontLike = Lists.create();
-		StringTokenizer whatIDontLikeTokenizer = new StringTokenizer(whatIDontLike, ":");
-		while(whatIDontLikeTokenizer.hasMoreTokens()) {
-			String lineNumber = whatIDontLikeTokenizer.nextToken();
-		
-			if (!whatIDontLikeTokenizer.hasMoreTokens()) {
-				throw new RuntimeException("invalid format of what I dont likes, expected content to match a line number: " + whatIDontLike);
-			}
-			
-			String oneThingIDontLike = whatIDontLikeTokenizer.nextToken();
-			thingsIDontLike.add(new WhatIDontLike(lineNumber, oneThingIDontLike));
-		}
+		List<ReviewComment> thingsILike = parseReviewComments(whatILike);
+		List<ReviewComment> thingsIDontLike = parseReviewComments(whatIDontLike);
 		return new CodeReview(theCode, thingsILike, thingsIDontLike);
 	}
 	
@@ -63,5 +40,21 @@ public class CodeReviewRepository {
 		} catch (Exception e) {
 			throw new RuntimeException("cant load file " + file.getAbsolutePath());
 		}
+	}
+	
+	private List<ReviewComment> parseReviewComments(String text) {
+		List<ReviewComment> reviewComments = Lists.create();
+		StringTokenizer tokenizer = new StringTokenizer(text, ":");
+		while(tokenizer.hasMoreTokens()) {
+			String lineNumber = tokenizer.nextToken();
+			
+			if (!tokenizer.hasMoreTokens()) {
+				throw new RuntimeException("invalid format of review comments, expected content to match a line number: " + text);
+			}
+			
+			String content = tokenizer.nextToken();
+			reviewComments.add(new ReviewComment(lineNumber, content));
+		}
+		return reviewComments;
 	}
 }

@@ -1,15 +1,15 @@
 package models;
 
-public class WhatIDontLike {
+public class ReviewComment {
 
-	private final String lineNumber;
 	private final String content;
+	private final String lineNumber;
 
-	public WhatIDontLike(String lineNumber, String content) {
+	public ReviewComment(String lineNumber, String content) {
 		this.lineNumber = lineNumber;
 		this.content = content;
 	}
-
+	
 	public String getContent() {
 		return content;
 	}
@@ -17,4 +17,5 @@ public class WhatIDontLike {
 	public String getLineNumber() {
 		return lineNumber;
 	}
+
 }

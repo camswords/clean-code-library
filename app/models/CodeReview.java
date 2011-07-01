@@ -5,10 +5,10 @@ import java.util.List;
 public class CodeReview {
 
 	private final String text;
-	private final List<WhatILike> thingsILike;
-	private final List<WhatIDontLike> thingsIDontLike;
+	private final List<ReviewComment> thingsILike;
+	private final List<ReviewComment> thingsIDontLike;
 	
-	public CodeReview(String text, List<WhatILike> thingsILike, List<WhatIDontLike> thingsIDontLike) {
+	public CodeReview(String text, List<ReviewComment> thingsILike, List<ReviewComment> thingsIDontLike) {
 		this.text = text;
 		this.thingsILike = thingsILike;
 		this.thingsIDontLike = thingsIDontLike;
@@ -18,11 +18,11 @@ public class CodeReview {
 		return text;
 	}
 
-	public List<WhatILike> getThingsILike() {
+	public List<ReviewComment> getThingsILike() {
 		return thingsILike;
 	}
 
-	public List<WhatIDontLike> getThingsIDontLike() {
+	public List<ReviewComment> getThingsIDontLike() {
 		return thingsIDontLike;
 	}
 }
