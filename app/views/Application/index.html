@@ -18,14 +18,16 @@
 
 <div id="header">
 	<h1>Clean Code Library</h1>
-</div>
+</div> 
 
 <div id="editor-panel">
 	<div id="code-under-review">${codeReview.text}</div>
 </div>
 <div id="what-i-like">
 	<p>+</p>
-	<p>${codeReview.whatILike}</p>
+	#{list items:codeReview.thingsILike, as:'whatILike'}
+	<p>${whatILike.content}</p>
+	#{/list}
 </div>
 <div id="what-i-dont-like">
 	<p>-</p>

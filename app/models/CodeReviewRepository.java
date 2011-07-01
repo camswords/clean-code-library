@@ -2,10 +2,12 @@ package models;
 
 import java.io.File;
 import java.io.FileReader;
+import java.util.List;
 import java.util.Random;
-import java.util.StringTokenizer;
 
 import org.apache.commons.io.IOUtils;
+
+import util.Lists;
 
 public class CodeReviewRepository {
 
@@ -25,7 +27,8 @@ public class CodeReviewRepository {
 		String whatIDontLike = content.substring(whatIDontLikeIndex, theCodeIndex).replace(">> the bad", "");
 		String theCode = content.substring(theCodeIndex).replace(">> the code", "");
 		
-		return new CodeReview(theCode, whatILike, whatIDontLike);
+		List<WhatILike> thingsILike = Lists.create(new WhatILike(whatILike));
+		return new CodeReview(theCode, thingsILike, whatIDontLike);
 	}
 	
 	private String loadContentForCodeReview(String codeReviewId) {
