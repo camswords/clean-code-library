@@ -1,7 +1,10 @@
 package models;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.List;
 import java.util.Random;
 import java.util.StringTokenizer;
@@ -13,32 +16,36 @@ import util.Lists;
 public class CodeReviewRepository {
 
 	public CodeReview getRandomPieceOfCode() {
-		String codeReview = new Random().nextBoolean() ? "cam" : "another";
-		return load(codeReview);
+		File[] codeReviews = new File("data/").listFiles();
+		File codeReview = codeReviews[new Random().nextInt(codeReviews.length)];
+		return load(codeReviews[0]);
 	}
 	
-	public CodeReview load(String codeReviewId) {
-		String content = loadContentForCodeReview(codeReviewId);
+	public CodeReview load(File codeReviewFile) {
+		String content = loadContentForCodeReview(codeReviewFile);
 		
 		int whatILikeIndex = content.indexOf(">> the good");
 		int whatIDontLikeIndex = content.indexOf(">> the bad");
 		int theCodeIndex = content.indexOf(">> the code");
 		
-		String whatILike = content.substring(whatILikeIndex, whatIDontLikeIndex).replace(">> the good\n", "");
-		String whatIDontLike = content.substring(whatIDontLikeIndex, theCodeIndex).replace(">> the bad\n", "");
-		String theCode = content.substring(theCodeIndex).replace(">> the code\n", "");
-		
-		List<ReviewComment> thingsILike = parseReviewComments(whatILike);
-		List<ReviewComment> thingsIDontLike = parseReviewComments(whatIDontLike);
-		return new CodeReview(theCode, thingsILike, thingsIDontLike);
+		try {
+			String whatILike = content.substring(whatILikeIndex, whatIDontLikeIndex).replace(">> the good\n", "");
+			String whatIDontLike = content.substring(whatIDontLikeIndex, theCodeIndex).replace(">> the bad\n", "");
+			String theCode = content.substring(theCodeIndex).replace(">> the code\n", "").replace(">> the code\r", "");
+			
+			List<ReviewComment> thingsILike = parseReviewComments(whatILike);
+			List<ReviewComment> thingsIDontLike = parseReviewComments(whatIDontLike);
+			return new CodeReview(theCode, thingsILike, thingsIDontLike);			
+		} catch(RuntimeException e) {
+			throw new RuntimeException("failed to load code review, content is " + content, e);
+		}
 	}
 	
-	private String loadContentForCodeReview(String codeReviewId) {
-		File file = new File("data/" + codeReviewId + ".txt");
+	private String loadContentForCodeReview(File codeReviewFile) {
 		try {
-			return IOUtils.toString(new FileReader(file));
+			return IOUtils.toString(new FileReader(codeReviewFile));
 		} catch (Exception e) {
-			throw new RuntimeException("cant load file " + file.getAbsolutePath());
+			throw new RuntimeException("cant load file " + codeReviewFile.getAbsolutePath());
 		}
 	}
 	
@@ -56,5 +63,17 @@ public class CodeReviewRepository {
 			reviewComments.add(new ReviewComment(lineNumber, content));
 		}
 		return reviewComments;
+	}
+
+	public void save(String name, File codeReview) {
+		try {
+			FileWriter fileWriter = new FileWriter(new File("data/" + name + ".txt"), false);
+			FileReader fileReader = new FileReader(codeReview);
+			IOUtils.copy(fileReader, fileWriter);
+			fileWriter.flush();
+			fileWriter.close();
+		} catch (IOException e) {
+			throw new RuntimeException("failed to save code review", e);
+		}
 	}
 }

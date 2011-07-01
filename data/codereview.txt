@@ -1,0 +1,1 @@
+>> the good1:this code sucks:3:what a stupid name>> the bad5:indentation sucks>> the codepublic class SomeCode {	private crappyCode;	public SomeCode() {		this.crappyCode = "whatever";	}}

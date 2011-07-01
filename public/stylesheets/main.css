@@ -15,11 +15,15 @@
 	border: 1px solid black;
 }
 
-#what-i-like {
+#code-review {
+	float: left;
 	position: relative;
 }
 
-#what-i-dont-like {
-	position: relative;
-	
+#upload-a-code-review {
+	float: right;
+}
+
+#upload-a-code-review input {
+	display: block;
 }

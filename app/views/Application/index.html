@@ -33,15 +33,25 @@
 <div id="editor-panel">
 	<div id="code-under-review">${codeReview.text}</div>
 </div>
-<div id="what-i-like">
-	<p>+</p>
-	#{list items:codeReview.thingsILike, as:'whatILike'}
-	<p lineNumber="${whatILike.lineNumber}">${whatILike.content}</p>
-	#{/list}
+<div id="code-review">
+	<div id="what-i-like">
+		<p>+</p>
+		#{list items:codeReview.thingsILike, as:'whatILike'}
+		<p lineNumber="${whatILike.lineNumber}">${whatILike.content}</p>
+		#{/list}
+	</div>
+	<div id="what-i-dont-like">
+		<p>-</p>
+		#{list items:codeReview.thingsIDontLike, as:'whatIDontLike'}
+		<p lineNumber="${whatIDontLike.lineNumber}">${whatIDontLike.content}</p>
+		#{/list}
+	</div>
 </div>
-<div id="what-i-dont-like">
-	<p>-</p>
-	#{list items:codeReview.thingsIDontLike, as:'whatIDontLike'}
-	<p lineNumber="${whatIDontLike.lineNumber}">${whatIDontLike.content}</p>
-	#{/list}
+<div id="upload-a-code-review">
+	<p>Upload a review</p>
+	<form action="@{Application.uploadCodeReview()}" method="POST" enctype="multipart/form-data">
+    	<p><label>name</label><input type="text" name="name" /></p>
+    	<p><label>file</label><input type="file" name="codeReview" /></p>
+    	<input type="submit" value="Upload" />
+	</form>
 </div>

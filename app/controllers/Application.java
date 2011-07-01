@@ -1,11 +1,10 @@
 package controllers;
 
-import play.*;
-import play.mvc.*;
+import java.io.File;
 
-import java.util.*;
-
-import models.*;
+import models.CodeReview;
+import models.CodeReviewRepository;
+import play.mvc.Controller;
 
 public class Application extends Controller {
 
@@ -13,5 +12,9 @@ public class Application extends Controller {
         CodeReview codeReview = new CodeReviewRepository().getRandomPieceOfCode();
 		render(codeReview);
     }
-
+    
+    public static void uploadCodeReview(String name, File codeReview) {
+    	new CodeReviewRepository().save(name, codeReview);
+    	index();
+    }
 }
