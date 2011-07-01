@@ -41,5 +41,7 @@
 </div>
 <div id="what-i-dont-like">
 	<p>-</p>
-	<p>${codeReview.whatIDontLike}</p>
+	#{list items:codeReview.thingsIDontLike, as:'whatIDontLike'}
+	<p lineNumber="${whatIDontLike.lineNumber}">${whatIDontLike.content}</p>
+	#{/list}
 </div>

@@ -6,12 +6,12 @@ public class CodeReview {
 
 	private final String text;
 	private final List<WhatILike> thingsILike;
-	private final String whatIDontLike;
+	private final List<WhatIDontLike> thingsIDontLike;
 	
-	public CodeReview(String text, List<WhatILike> thingsILike, String whatIDontLike) {
+	public CodeReview(String text, List<WhatILike> thingsILike, List<WhatIDontLike> thingsIDontLike) {
 		this.text = text;
 		this.thingsILike = thingsILike;
-		this.whatIDontLike = whatIDontLike;
+		this.thingsIDontLike = thingsIDontLike;
 	}
 
 	public String getText() {
@@ -22,7 +22,7 @@ public class CodeReview {
 		return thingsILike;
 	}
 
-	public String getWhatIDontLike() {
-		return whatIDontLike;
+	public List<WhatIDontLike> getThingsIDontLike() {
+		return thingsIDontLike;
 	}
 }

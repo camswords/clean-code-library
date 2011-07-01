@@ -1,5 +1,5 @@
 >> the good
-1:i really like the name:2:i like the field being final and private
+1:i really like the name:3:i like the field being final and private
 >> the bad
 8:doesnt really have any behaviour
 >> the code

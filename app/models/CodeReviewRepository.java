@@ -24,9 +24,9 @@ public class CodeReviewRepository {
 		int whatIDontLikeIndex = content.indexOf(">> the bad");
 		int theCodeIndex = content.indexOf(">> the code");
 		
-		String whatILike = content.substring(whatILikeIndex, whatIDontLikeIndex).replace(">> the good", "");
-		String whatIDontLike = content.substring(whatIDontLikeIndex, theCodeIndex).replace(">> the bad", "");
-		String theCode = content.substring(theCodeIndex).replace(">> the code", "");
+		String whatILike = content.substring(whatILikeIndex, whatIDontLikeIndex).replace(">> the good\n", "");
+		String whatIDontLike = content.substring(whatIDontLikeIndex, theCodeIndex).replace(">> the bad\n", "");
+		String theCode = content.substring(theCodeIndex).replace(">> the code\n", "");
 		
 		List<WhatILike> thingsILike = Lists.create();
 		StringTokenizer whatILikeTokenizer = new StringTokenizer(whatILike, ":");
@@ -41,7 +41,19 @@ public class CodeReviewRepository {
 			thingsILike.add(new WhatILike(lineNumber, oneThingILike));
 		}
 		
-		return new CodeReview(theCode, thingsILike, whatIDontLike);
+		List<WhatIDontLike> thingsIDontLike = Lists.create();
+		StringTokenizer whatIDontLikeTokenizer = new StringTokenizer(whatIDontLike, ":");
+		while(whatIDontLikeTokenizer.hasMoreTokens()) {
+			String lineNumber = whatIDontLikeTokenizer.nextToken();
+		
+			if (!whatIDontLikeTokenizer.hasMoreTokens()) {
+				throw new RuntimeException("invalid format of what I dont likes, expected content to match a line number: " + whatIDontLike);
+			}
+			
+			String oneThingIDontLike = whatIDontLikeTokenizer.nextToken();
+			thingsIDontLike.add(new WhatIDontLike(lineNumber, oneThingIDontLike));
+		}
+		return new CodeReview(theCode, thingsILike, thingsIDontLike);
 	}
 	
 	private String loadContentForCodeReview(String codeReviewId) {
