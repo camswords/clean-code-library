@@ -21,8 +21,8 @@
 window.onload = function() {
 
 		var textEditor = TextEditorBuilder.create().atElement("code-under-review").isEditable().build();
-		var whatILikeRepository = ReviewCommentRepository.create();
-		var whatIDontLikeRepository = ReviewCommentRepository.create();
+		var whatILikeRepository = ReviewCommentRepository.create('#what-i-like');
+		var whatIDontLikeRepository = ReviewCommentRepository.create('#what-i-dont-like');
 				
 		Form.create('#upload-a-code-review-form').onSubmit(function() {
 			var message = ServerMessageBuilder.create()
