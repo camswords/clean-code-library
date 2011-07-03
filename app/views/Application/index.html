@@ -5,23 +5,16 @@
 	#{script 'mode-java.js' /}
 	#{script 'theme-clouds_midnight.js' /}
 	#{script 'jquery-1.6.1.min.js' /}
+	#{script 'text-editor-builder.js' /}
+	#{script 'text-editor.js' /}
 #{/set}
 
 <script>
 	window.onload = function() {
-		editor = ace.edit("code-under-review");
-		
-		var JavaMode = require("ace/mode/java").Mode;
-		editor.getSession().setMode(new JavaMode());
-		editor.setReadOnly(true);
-		editor.setShowPrintMargin(false);
-		editor.setHighlightActiveLine(false);
+		var textEditor = TextEditorBuilder.create().atElement("code-under-review").isReadOnly().build();
 		
 		$("p[lineNumber]").click(function() {
-			var lineNumber = $(this).attr("lineNumber");
-			editor.gotoLine(lineNumber);
-			editor.scrollToLine(lineNumber);
-			editor.setHighlightActiveLine(true);
+			textEditor.highlightLine($(this).attr("lineNumber"));
 		});
 	};
 </script>

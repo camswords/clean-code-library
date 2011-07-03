@@ -7,6 +7,7 @@
 	#{script 'jquery-1.6.1.min.js' /}
 	#{script 'jquery.json-2.2.min.js' /}
 	#{script 'form.js' /}
+	#{script 'text-editor-builder.js' /}
 	#{script 'text-editor.js' /}
 	#{script 'server-message-builder.js' /}
 	#{script 'server-message.js' /}
@@ -15,7 +16,8 @@
 
 <script>
 window.onload = function() {
-		var textEditor = TextEditor.create("code-under-review");
+
+		var textEditor = TextEditorBuilder.create().atElement("code-under-review").isEditable().build();
 
 		Form.create('#upload-a-code-review-form').onSubmit(function() {
 			var message = ServerMessageBuilder.create()
