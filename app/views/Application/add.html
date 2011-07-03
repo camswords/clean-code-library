@@ -22,9 +22,7 @@ window.onload = function() {
 								.postTo('/upload')
 								.data({'json' : Json.createFrom(textEditor.getLinesOfText()), 'name': $('#name').attr("value")})
 								.onSuccess(function(response) {
-									alert("success! : " + response);
-									alert(Json.toObject(response).redirectTo);
-									document.location = Json.toObject(response).redirectTo;
+									document.location = response.redirectTo;
 								})
 								.build();
 			message.send();
