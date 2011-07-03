@@ -1,9 +1,9 @@
 #{extends 'site_layout.html' /}
 
 #{set 'moreScripts'}
-	#{script 'ace.js' /}
-	#{script 'mode-java.js' /}
-	#{script 'theme-clouds_midnight.js' /}
+	#{script 'ace/ace.js' /}
+	#{script 'ace/mode-java.js' /}
+	#{script 'ace/theme-clouds_midnight.js' /}
 	#{script 'jquery-1.6.1.min.js' /}
 	#{script 'jquery.json-2.2.min.js' /}
 	#{script 'form.js' /}
@@ -34,6 +34,8 @@ window.onload = function() {
 <div id="header">
 	<h1>Upload some code ye sonny jim</h1>
 </div> 
+
+<a href="/">cancel</a>
 
 <div id="editor-panel">
 	<div id="code-under-review"></div>
