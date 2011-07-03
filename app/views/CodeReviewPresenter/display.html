@@ -23,6 +23,10 @@
 	<div id="code-under-review">${codeReview.text}</div>
 </div>
 <div id="code-review">
+	<a href="@{RandomCodeReviewPresenter.display}">Random piece of code</a>
+	<div id="metadata">
+		<p>${codeReview.name}</p>
+	</div>
 	<div id="what-i-like">
 		<p>+</p>
 		#{list items:codeReview.thingsILike, as:'whatILike'}

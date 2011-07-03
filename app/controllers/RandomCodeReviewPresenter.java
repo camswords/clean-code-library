@@ -8,6 +8,6 @@ public class RandomCodeReviewPresenter extends Controller {
 
 	public static void display() {
 		CodeReview codeReview = new CodeReviewRepository().getRandomPieceOfCode();
-		render(codeReview);
+		CodeReviewPresenter.display(codeReview.getName());
 	}
 }

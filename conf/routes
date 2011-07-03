@@ -4,6 +4,8 @@
 
 # Home page
 GET     /                                       RandomCodeReviewPresenter.display
+GET     /codeReview/{name}						CodeReviewPresenter.display
+
 
 POST    /upload									Application.someMethod
 

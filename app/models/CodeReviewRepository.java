@@ -20,7 +20,11 @@ public class CodeReviewRepository {
 		File codeReview = codeReviews[new Random().nextInt(codeReviews.length)];
 		return load(codeReview);
 	}
-	
+
+	public CodeReview load(String name) {
+		return load(new File("data/" + name + ".txt"));
+	}
+
 	public CodeReview load(File codeReviewFile) {
 		String content = loadContentForCodeReview(codeReviewFile);
 		
