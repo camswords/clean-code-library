@@ -1,0 +1,43 @@
+#{extends 'site_layout.html' /}
+
+#{set 'moreScripts'}
+	#{script 'ace.js' /}
+	#{script 'mode-java.js' /}
+	#{script 'theme-clouds_midnight.js' /}
+	#{script 'jquery-1.6.1.min.js' /}
+	#{script 'jquery.json-2.2.min.js' /}
+	#{script 'form.js' /}
+	#{script 'textEditor.js' /}
+	#{script 'server-message-builder.js' /}
+	#{script 'server-message.js' /}
+#{/set}
+
+<script>
+window.onload = function() {
+		var textEditor = TextEditor.create("code-under-review");
+
+		Form.create('#upload-a-code-review-form').onSubmit(function() {
+			var message = ServerMessageBuilder.create()
+								.postTo('/upload')
+								.jsonData(textEditor.getLinesOfText())
+								.onSuccess(function() { alert("success"); })
+								.build();
+			message.send();
+		});
+	};
+</script>
+<div id="header">
+	<h1>Upload some code ye sonny jim</h1>
+</div> 
+
+<div id="editor-panel">
+	<div id="code-under-review"></div>
+</div>
+
+<div id="upload-a-code-review">
+	<form id="upload-a-code-review-form" action="@{Application.uploadSomeCode()}" method="POST">
+    	<p><label>name</label><input type="text" name="name" /></p>
+    	<input type="text" id="code" name="code" value="cow" />
+    	<input type="submit" value="Upload" />
+	</form>
+</div>

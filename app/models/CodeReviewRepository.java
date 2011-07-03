@@ -1,10 +1,10 @@
 package models;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 import java.util.Random;
 import java.util.StringTokenizer;
@@ -18,7 +18,7 @@ public class CodeReviewRepository {
 	public CodeReview getRandomPieceOfCode() {
 		File[] codeReviews = new File("data/").listFiles();
 		File codeReview = codeReviews[new Random().nextInt(codeReviews.length)];
-		return load(codeReviews[0]);
+		return load(codeReview);
 	}
 	
 	public CodeReview load(File codeReviewFile) {
@@ -74,6 +74,20 @@ public class CodeReviewRepository {
 			fileWriter.close();
 		} catch (IOException e) {
 			throw new RuntimeException("failed to save code review", e);
+		}
+	}
+
+	public void save(String name, CodeReview codeReview) {
+		try {
+			PrintWriter writer = new PrintWriter(new FileWriter("data/" + name + ".txt", false));
+			writer.println(">> the good");
+			writer.println(">> the bad");
+			writer.println(">> the code");
+			writer.println(codeReview.getText());
+			writer.flush();
+			writer.close();
+		} catch (IOException e) {
+			throw new RuntimeException("failed to save code review with name " + name);
 		}
 	}
 }
