@@ -11,7 +11,7 @@
 
 <script>
 	window.onload = function() {
-		var textEditor = TextEditorBuilder.create().atElement("code-under-review").isReadOnly().build();
+		textEditor = TextEditorBuilder.create().atElement("code-under-review").isReadOnly().build();
 		
 		$("p[lineNumber]").click(function() {
 			textEditor.highlightLine($(this).attr("lineNumber"));
@@ -23,8 +23,8 @@
 	<div id="code-under-review">${codeReview.text}</div>
 </div>
 <div id="menu">
-	<a href="/random">Again again!</a>
-	<a href="/upload">Upload some code</a>
+	<p><a href="/random">Show me more code!</a></p>
+	<p><a href="/upload">Upload some code</a></p>
 </div>
 
 <div id="code-review">

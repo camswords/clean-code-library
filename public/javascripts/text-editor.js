@@ -15,10 +15,13 @@ TextEditor.create = function(elementId, isReadOnly) {
 		getLinesOfText: function() {
 			return editor.env.document.getDocument().getAllLines();
 		},
-		highlightLine: function() {
+		highlightLine: function(lineNumber) {
 			editor.gotoLine(lineNumber);
 			editor.scrollToLine(lineNumber);
 			editor.setHighlightActiveLine(true);
+		},
+		getEditor: function() {
+			return editor;
 		}
 	};
 };

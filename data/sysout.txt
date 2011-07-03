@@ -1,0 +1,10 @@
+>> the good
+>> the bad
+>> the code
+public class YetAnotherClass extends Object {
+    
+    public static void main(String[] args) {
+        System.out.println("does this look alright?");   
+    }
+    
+}
