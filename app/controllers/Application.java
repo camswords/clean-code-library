@@ -21,7 +21,7 @@ import com.google.gson.reflect.TypeToken;
 public class Application extends Controller {
     
     public static void uploadCodeReview(String name, File codeReview) {
-    	new CodeReviewRepository().save(name, codeReview);
+    	new CodeReviewRepository().save(codeReview);
     	RandomCodeReviewPresenter.display();
     }
     
