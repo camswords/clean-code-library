@@ -19,15 +19,10 @@ import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 
 public class Application extends Controller {
-
-    public static void index() {
-        CodeReview codeReview = new CodeReviewRepository().getRandomPieceOfCode();
-		render(codeReview);
-    }
     
     public static void uploadCodeReview(String name, File codeReview) {
     	new CodeReviewRepository().save(name, codeReview);
-    	index();
+    	RandomCodeReviewPresenter.display();
     }
     
     public static void add() {
@@ -39,15 +34,15 @@ public class Application extends Controller {
     	Type type = new TypeToken<List<String>>(){}.getType();
     	List<String> lines = new Gson().fromJson(jsonObject, type);
     	
-    	CodeReview codeReview = new CodeReview(StringUtils.join(lines, "\n"), Lists.<ReviewComment>create(), Lists.<ReviewComment>create());
+    	CodeReview codeReview = new CodeReview(name, StringUtils.join(lines, "\n"), Lists.<ReviewComment>create(), Lists.<ReviewComment>create());
     	new CodeReviewRepository().save(name, codeReview);
 
     	renderText("{ \"redirectTo\": \"/\" }");
     }
     
     public static void uploadSomeCode(String name, String code) {
-    	CodeReview codeReview = new CodeReview(code, Lists.<ReviewComment>create(), Lists.<ReviewComment>create());
+    	CodeReview codeReview = new CodeReview(name, code, Lists.<ReviewComment>create(), Lists.<ReviewComment>create());
     	new CodeReviewRepository().save(name, codeReview);
-    	index();
+    	RandomCodeReviewPresenter.display();
     }
 }

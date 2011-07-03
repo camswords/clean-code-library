@@ -1,0 +1,50 @@
+#{extends 'site_layout.html' /}
+
+#{set 'moreScripts'}
+	#{script 'ace/ace.js' /}
+	#{script 'ace/mode-java.js' /}
+	#{script 'ace/theme-clouds_midnight.js' /}
+	#{script 'jquery/jquery-1.6.1.min.js' /}
+	#{script 'text-editor-builder.js' /}
+	#{script 'text-editor.js' /}
+#{/set}
+
+<script>
+	window.onload = function() {
+		var textEditor = TextEditorBuilder.create().atElement("code-under-review").isReadOnly().build();
+		
+		$("p[lineNumber]").click(function() {
+			textEditor.highlightLine($(this).attr("lineNumber"));
+		});
+	};
+</script>
+
+<div id="editor-panel">
+	<div id="code-under-review">${codeReview.text}</div>
+</div>
+<div id="code-review">
+	<div id="metadata">
+		<p>${codeReview.name}</p>
+	</div>
+	<div id="what-i-like">
+		<p>+</p>
+		#{list items:codeReview.thingsILike, as:'whatILike'}
+		<p lineNumber="${whatILike.lineNumber}">${whatILike.content}</p>
+		#{/list}
+	</div>
+	<div id="what-i-dont-like">
+		<p>-</p>
+		#{list items:codeReview.thingsIDontLike, as:'whatIDontLike'}
+		<p lineNumber="${whatIDontLike.lineNumber}">${whatIDontLike.content}</p>
+		#{/list}
+	</div>
+</div>
+<div id="upload-a-code-review">
+	<p>Upload a review</p>
+	<form action="@{Application.uploadCodeReview()}" method="POST" enctype="multipart/form-data">
+    	<p><label>name</label><input type="text" name="name" /></p>
+    	<p><label>file</label><input type="file" name="codeReview" /></p>
+    	<input type="submit" value="Upload" />
+	</form>
+	<a href="@{Application.add}">Upload some code</a>
+</div>

@@ -35,7 +35,8 @@ public class CodeReviewRepository {
 			
 			List<ReviewComment> thingsILike = parseReviewComments(whatILike);
 			List<ReviewComment> thingsIDontLike = parseReviewComments(whatIDontLike);
-			return new CodeReview(theCode, thingsILike, thingsIDontLike);			
+			String name = codeReviewFile.getName().replace(".txt", "");
+			return new CodeReview(name, theCode, thingsILike, thingsIDontLike);			
 		} catch(RuntimeException e) {
 			throw new RuntimeException("failed to load code review, content is " + content, e);
 		}
@@ -65,9 +66,9 @@ public class CodeReviewRepository {
 		return reviewComments;
 	}
 
-	public void save(String name, File codeReview) {
+	public void save(File codeReview) {
 		try {
-			FileWriter fileWriter = new FileWriter(new File("data/" + name + ".txt"), false);
+			FileWriter fileWriter = new FileWriter(new File("data/" + codeReview.getName() + ".txt"), false);
 			FileReader fileReader = new FileReader(codeReview);
 			IOUtils.copy(fileReader, fileWriter);
 			fileWriter.flush();
