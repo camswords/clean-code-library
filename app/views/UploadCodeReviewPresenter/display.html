@@ -14,6 +14,7 @@
 	#{script 'json.js' /}
 	#{script 'review-comment-repository.js' /}
 	#{script 'review-comment.js' /}
+	#{script 'user.js' /}
 #{/set}
 
 <script>
@@ -39,12 +40,12 @@ window.onload = function() {
 		
 		
 		$('#add-what-i-like').click(function() {
-			var whatILike = prompt("what do you think?");
+			var whatILike = User.ask("what do you like about it?");
 			whatILikeRepository.save(ReviewComment.create(whatILike, textEditor.getLineNumber()));
 		});
 		
 		$('#add-what-i-dont-like').click(function() {
-			var whatIDontLike = prompt("what do you think?");
+			var whatIDontLike = User.ask("what don't you like about it?");
 			whatIDontLikeRepository.save(ReviewComment.create(whatIDontLike, textEditor.getLineNumber()));
 		});
 	};
