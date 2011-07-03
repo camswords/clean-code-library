@@ -12,22 +12,33 @@
 	#{script 'server-message-builder.js' /}
 	#{script 'server-message.js' /}
 	#{script 'json.js' /}
+	#{script 'review-comment-repository.js' /}
+	#{script 'review-comment.js' /}
 #{/set}
 
 <script>
 window.onload = function() {
 
 		var textEditor = TextEditorBuilder.create().atElement("code-under-review").isEditable().build();
-
+		var whatILikeRepository = ReviewCommentRepository.create();
+		
 		Form.create('#upload-a-code-review-form').onSubmit(function() {
 			var message = ServerMessageBuilder.create()
 								.postTo('/upload')
-								.data({'json' : Json.createFrom(textEditor.getLinesOfText()), 'name': $('#name').attr("value")})
+								.data({'json' : Json.createFrom(textEditor.getLinesOfText()), 
+									   'name': $('#name').attr("value"),
+									   'thingsILike': Json.createFrom(whatILikeRepository.all()) })
 								.onSuccess(function(response) {
 									document.location = response.redirectTo;
 								})
 								.build();
 			message.send();
+		});
+		
+		
+		$('#add-what-i-like').click(function() {
+			var whatILike = prompt("what do you think?");
+			whatILikeRepository.save(ReviewComment.like(whatILike, textEditor.getSelection()));
 		});
 	};
 </script>
@@ -45,7 +56,7 @@ window.onload = function() {
 		<p><label>name</label><input type="text" id="name" name="name" /></p>
 	</div>
 	<div id="what-i-like">
-		<p>+</p>
+		<p>+ <input type="button" id="add-what-i-like" value="add" /></p>
 	</div>
 	<div id="what-i-dont-like">
 		<p>-</p>

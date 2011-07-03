@@ -86,6 +86,9 @@ public class CodeReviewRepository {
 		try {
 			PrintWriter writer = new PrintWriter(new FileWriter("data/" + codeReview.getName() + ".txt", false));
 			writer.println(">> the good");
+			for(ReviewComment reviewComment : codeReview.getThingsILike()) {
+				writer.println(reviewComment.getLineNumber() + ":" + reviewComment.getContent());
+			}
 			writer.println(">> the bad");
 			writer.println(">> the code");
 			writer.println(codeReview.getText());

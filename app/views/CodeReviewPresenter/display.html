@@ -11,7 +11,7 @@
 
 <script>
 	window.onload = function() {
-		textEditor = TextEditorBuilder.create().atElement("code-under-review").isReadOnly().build();
+		var textEditor = TextEditorBuilder.create().atElement("code-under-review").isReadOnly().build();
 		
 		$("p[lineNumber]").click(function() {
 			textEditor.highlightLine($(this).attr("lineNumber"));

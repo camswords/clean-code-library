@@ -1,6 +1,7 @@
 package controllers;
 
 import java.lang.reflect.Type;
+import java.util.Iterator;
 import java.util.List;
 
 import models.CodeReview;
@@ -19,12 +20,21 @@ import com.google.gson.reflect.TypeToken;
 
 public class UploadCodeReviewCommand extends Controller {
 
-	 public static void upload(String name, String json) {
+	 public static void upload(String name, String json, String thingsILike) {
 	    	JsonElement jsonObject = new JsonParser().parse(json);
 	    	Type type = new TypeToken<List<String>>(){}.getType();
 	    	List<String> lines = new Gson().fromJson(jsonObject, type);
 	    	
-	    	CodeReview codeReview = new CodeReview(name, StringUtils.join(lines, "\n"), Lists.<ReviewComment>create(), Lists.<ReviewComment>create());
+	    	Type anotherType = new TypeToken<List<ReviewComment>>() {}.getType();
+	    	JsonElement anotherJsonObject = new JsonParser().parse(thingsILike);
+	    	List<ReviewComment> yeahThingsILike = new Gson().fromJson(anotherJsonObject, anotherType);
+
+	    	System.out.println("found " + yeahThingsILike.size() + " things I like");
+	    	for (ReviewComment oneThingILike: yeahThingsILike) {
+				System.out.println("review comment: " + oneThingILike.getLineNumber() + ":" + oneThingILike.getContent());
+			}
+	    	
+	    	CodeReview codeReview = new CodeReview(name, StringUtils.join(lines, "\n"), yeahThingsILike, Lists.<ReviewComment>create());
 	    	new CodeReviewRepository().save(codeReview);
 
 	    	render(codeReview.getName());
