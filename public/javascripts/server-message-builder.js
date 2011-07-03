@@ -3,7 +3,7 @@ var ServerMessageBuilder = {};
 
 ServerMessageBuilder.create = function() {
 	var _uri = 'no.uri.specified';
-	var _jsonData = 'no.data.specified';
+	var _data = 'no.data.specified';
 	var _onSuccess = 'no.onSuccess.specified';
 	
 	var self = {
@@ -11,8 +11,8 @@ ServerMessageBuilder.create = function() {
 			_uri = uri;
 			return self;
 		},
-		jsonData: function(jsonData) {
-			_jsonData = $.toJSON(jsonData);
+		data: function(data) {
+			_data = data;
 			return self;
 		},
 		onSuccess: function(onSuccess) {
@@ -20,7 +20,7 @@ ServerMessageBuilder.create = function() {
 			return self;
 		},
 		build: function() {
-			return ServerMessage.create(_uri, _jsonData, _onSuccess);
+			return ServerMessage.create(_uri, _data, _onSuccess);
 		}
 	};
 	return self;

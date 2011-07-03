@@ -1,13 +1,13 @@
 
 var ServerMessage = {};
 
-ServerMessage.create = function(uri, jsonData, onSuccess) {
+ServerMessage.create = function(uri, data, onSuccess) {
 
 	return {
 		send: function() {
-			$.ajax({ url: uri, data: {'json': jsonData }, type: "POST", dataType: "json" })
+			$.ajax({ url: uri, data: data, type: "POST", dataType: "text" })
 				.success(onSuccess)
-   			    .error(function() { alert("error found"); });
+   			    .error(function(jqXHR, textStatus, errorThrown) { alert("error found:" + textStatus + ", " + errorThrown); });
 		}
 	};
 };
