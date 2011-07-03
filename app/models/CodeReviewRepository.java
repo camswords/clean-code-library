@@ -82,9 +82,9 @@ public class CodeReviewRepository {
 		}
 	}
 
-	public void save(String name, CodeReview codeReview) {
+	public void save(CodeReview codeReview) {
 		try {
-			PrintWriter writer = new PrintWriter(new FileWriter("data/" + name + ".txt", false));
+			PrintWriter writer = new PrintWriter(new FileWriter("data/" + codeReview.getName() + ".txt", false));
 			writer.println(">> the good");
 			writer.println(">> the bad");
 			writer.println(">> the code");
@@ -92,7 +92,7 @@ public class CodeReviewRepository {
 			writer.flush();
 			writer.close();
 		} catch (IOException e) {
-			throw new RuntimeException("failed to save code review with name " + name);
+			throw new RuntimeException("failed to save code review with name " + codeReview.getName());
 		}
 	}
 }

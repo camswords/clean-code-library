@@ -4,10 +4,11 @@
 
 # Home page
 GET     /                                       RandomCodeReviewPresenter.display
+GET    	/random									RandomCodeReviewPresenter.display
 GET     /codeReview/{name}						CodeReviewPresenter.display
 
-
-POST    /upload									Application.someMethod
+GET 	/upload									UploadCodeReviewPresenter.display
+POST    /upload									UploadCodeReviewCommand.upload
 
 # Ignore favicon requests
 GET     /favicon.ico                            404
