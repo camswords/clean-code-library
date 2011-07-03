@@ -54,16 +54,24 @@ window.onload = function() {
 	<h1>Upload some code ye sonny jim</h1>
 </div> 
 
-
+#{ifErrors}
+	<p>crap! cant submit until you fix these errors</p>
+#{/ifErrors}
 <div id="editor-panel">
+	<span class="error">#{error 'code' /}</span>
 	<div id="code-under-review"></div>
 </div>
 
 <div id="code-review">
 	<div id="metadata">
-		<p><label>name</label><input type="text" id="name" name="name" /></p>
+		<p>
+		<label>name</label>
+		<input type="text" id="name" name="name" value="${flash.name}" />
+		<span class="error">#{error 'name' /}</span>
+		</p>
 	</div>
 	<div id="what-i-like">
+		<span class="error">#{error 'reviewComments' /}</span>
 		<p>+ <input type="button" id="add-what-i-like" value="add" /></p>
 	</div>
 	<div id="what-i-dont-like">
@@ -73,8 +81,4 @@ window.onload = function() {
 		<input type="submit" value="Save" />
 		<a href="/">cancel</a>
 	</form>
-</div>
-
-<div id="upload-a-code-review">
-	
 </div>
