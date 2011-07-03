@@ -20,7 +20,7 @@ import com.google.gson.reflect.TypeToken;
 
 public class UploadCodeReviewCommand extends Controller {
 
-	 public static void upload(String name, String json, String thingsILike) {
+	 public static void upload(String name, String json, String thingsILike, String thingsIDontLike) {
 	    	JsonElement jsonObject = new JsonParser().parse(json);
 	    	Type type = new TypeToken<List<String>>(){}.getType();
 	    	List<String> lines = new Gson().fromJson(jsonObject, type);
@@ -29,12 +29,11 @@ public class UploadCodeReviewCommand extends Controller {
 	    	JsonElement anotherJsonObject = new JsonParser().parse(thingsILike);
 	    	List<ReviewComment> yeahThingsILike = new Gson().fromJson(anotherJsonObject, anotherType);
 
-	    	System.out.println("found " + yeahThingsILike.size() + " things I like");
-	    	for (ReviewComment oneThingILike: yeahThingsILike) {
-				System.out.println("review comment: " + oneThingILike.getLineNumber() + ":" + oneThingILike.getContent());
-			}
+	    	Type yetAnotherType = new TypeToken<List<ReviewComment>>() {}.getType();
+	    	JsonElement yetAnotherJsonObject = new JsonParser().parse(thingsIDontLike);
+	    	List<ReviewComment> yeahThingsIDontLike = new Gson().fromJson(yetAnotherJsonObject, yetAnotherType);
 	    	
-	    	CodeReview codeReview = new CodeReview(name, StringUtils.join(lines, "\n"), yeahThingsILike, Lists.<ReviewComment>create());
+	    	CodeReview codeReview = new CodeReview(name, StringUtils.join(lines, "\n"), yeahThingsILike, yeahThingsIDontLike);
 	    	new CodeReviewRepository().save(codeReview);
 
 	    	render(codeReview.getName());

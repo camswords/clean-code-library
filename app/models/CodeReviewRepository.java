@@ -90,6 +90,9 @@ public class CodeReviewRepository {
 				writer.println(reviewComment.getLineNumber() + ":" + reviewComment.getContent());
 			}
 			writer.println(">> the bad");
+			for(ReviewComment reviewComment : codeReview.getThingsIDontLike()) {
+				writer.println(reviewComment.getLineNumber() + ":" + reviewComment.getContent());
+			}			
 			writer.println(">> the code");
 			writer.println(codeReview.getText());
 			writer.flush();

@@ -20,7 +20,7 @@ TextEditor.create = function(elementId, isReadOnly) {
 			editor.scrollToLine(lineNumber);
 			editor.setHighlightActiveLine(true);
 		},
-		getSelection: function() {
+		getLineNumber: function() {
 			return editor.selection.getCursor().row + 1;
 		},
 		getEditor: function() {

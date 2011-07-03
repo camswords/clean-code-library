@@ -1,7 +1,7 @@
 
 var ReviewComment = {};
 
-ReviewComment.like = function(content, lineNumber) {
+ReviewComment.create = function(content, lineNumber) {
 	return {
 		content: content,
 		lineNumber: lineNumber
